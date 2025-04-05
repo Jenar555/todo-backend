@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS  # <-- ADD THIS
+from flask_cors import CORS
 import json
 import os
 
 app = Flask(__name__)
-CORS(app)  # <-- ENABLE CORS for all routes
+CORS(app)
 
 DATA_FILE = 'todos.json'
 
@@ -55,5 +55,7 @@ def delete_todo(todo_id):
     write_todos(updated)
     return jsonify({'message': 'Todo deleted'})
 
+# ✅ Proper Render config
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use PORT from Render or fallback to 5000
+    app.run(host='0.0.0.0', port=port)
